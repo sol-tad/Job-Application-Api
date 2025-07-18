@@ -15,3 +15,7 @@ func UpdateUserProfile(db *sql.DB, id int, username, emailId string) (*models.Us
 
 	return repository.UpdateUserProfile(db, user)
 }
+
+func UpdateProfilePicture(db *sql.DB, id int, profilePicture string) error {
+	return repository.UpdateProfilePicture(db, id, profilePicture)
+}
