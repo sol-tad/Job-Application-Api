@@ -40,3 +40,5 @@ func RegisterHandler(db *sql.DB) gin.HandlerFunc{
 	}
 
 }
+
+	
