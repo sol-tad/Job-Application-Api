@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"jobApplication/internal/models"
 	"jobApplication/internal/repository"
+	"jobApplication/utils"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -18,6 +19,18 @@ func RegisterUser(db *sql.DB,user *models.User) error {
 
     user.Password = string(hashedPassword)
     return repository.CreateUser(db, user)
+}
 
-    
+func LoginUser(db *sql.DB, username, password string) (string, error) {
+	user, err := repository.GetUserByUserName(db, username)
+
+	if err != nil {
+		return "", err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		return "", err
+	}
+
+	return utils.GenerateToken(user.Username, user.ID, user.IsAdmin)
 }

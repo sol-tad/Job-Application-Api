@@ -13,6 +13,4 @@ func InitRoutes(r *gin.Engine,db *sql.DB){
 	r.POST("/register",handler.RegisterHandler(db))
 	r.GET("/users/:id",handler.GetUserByIDHandler(db))
 
-
-
 }
