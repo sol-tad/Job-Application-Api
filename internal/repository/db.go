@@ -2,7 +2,7 @@ package repository
 
 import (
 	"database/sql"
-	"os"
+	
 	_ "modernc.org/sqlite"
 )
 
@@ -50,8 +50,8 @@ func createTable(db *sql.DB) error {
 	   FOREIGN KEY (user_id) REFERENCES users(id)
 	);
 
-	INSERT OR IGNORE INTO users (username, password, email, is_admin) VALUES('admin1', '$2a$10$yCCIwf.RIsZJtAfgmyji5u0nUK0lfm8oHXqZuaG9XrYTUVnWrcmyi', 'admin1@gmail.com', true)
-   `)
-
+	`)
+	
 	return err
 }
+// INSERT OR IGNORE INTO users (username, password, email, is_admin) VALUES('admin1', '$2a$10$yCCIwf.RIsZJtAfgmyji5u0nUK0lfm8oHXqZuaG9XrYTUVnWrcmyi', 'admin1@gmail.com', true)
