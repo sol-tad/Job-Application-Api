@@ -37,3 +37,11 @@ func GetUserByUserName(db *sql.DB, username string) (*models.User, error) {
 	}
 	return user, nil
 }
+
+func UpdateUserProfile(db *sql.DB, user *models.User) (*models.User, error) {
+	_, err := db.Exec("UPDATE users SET username = ?, email = ? WHERE id = ?", user.Username, user.Email, user.ID)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
