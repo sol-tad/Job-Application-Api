@@ -26,8 +26,9 @@ func InitRoutes(r *gin.Engine,db *sql.DB){
 	authenticated.PUT("/jobs/:id", handler.UpdateJobByHandler(db))
 	authenticated.DELETE("/jobs/:id", handler.DeleteJobByHandler(db))
 
-	
-
+	//admin
+	authenticated.GET("/users", handler.GetAllUsersHandler(db))
+	authenticated.DELETE("/users/:id", handler.DeleteUserByIdHandler(db))
 
 
 }
