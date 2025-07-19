@@ -22,6 +22,10 @@ func InitRoutes(r *gin.Engine,db *sql.DB){
 
 	//job routes
 	authenticated.POST("/jobs", handler.CreateJobHandler(db))
+	authenticated.GET("/jobs/:id", handler.GetJobByIdHandler(db))
+	authenticated.PUT("/jobs/:id", handler.UpdateJobByHandler(db))
+	authenticated.DELETE("/jobs/:id", handler.DeleteJobByHandler(db))
+
 	
 
 
