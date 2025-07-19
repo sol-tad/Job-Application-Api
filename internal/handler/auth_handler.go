@@ -49,4 +49,21 @@ func RegisterHandler(db *sql.DB) gin.HandlerFunc{
 
 }
 
-	
+func ForgotPasswordHandler(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var req models.ForgotPasswordRequest
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		passowrd, err := services.ForgotPassword(db, req.Username)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"updated_password": passowrd})
+	}
+}

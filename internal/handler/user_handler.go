@@ -3,6 +3,7 @@ package handler
 import (
 	"database/sql"
 	"fmt"
+	"jobApplication/internal/models"
 	"jobApplication/internal/services"
 	"net/http"
 	"os"
@@ -166,5 +167,22 @@ func DeleteUserByIdHandler(db *sql.DB) gin.HandlerFunc {
 
 		c.JSON(http.StatusOK, gin.H{"message": "User and associated data deleted successfully"})
 
+	}
+}
+
+func ChangePasswordHandler(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var req models.ChangePasswordRequest
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		userID := c.GetInt("userID")
+		err := services.ChangePassword(db, userID, req.CurrentPassword, req.NewPassword)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Password changed successfully"})
 	}
 }
